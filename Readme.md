@@ -1,6 +1,8 @@
  **WeltCrawler**
+ 
 
 **DE**
+
 ** WeltCrawler **
 
 WeltCrawler ist ein Crawler für mehrere in Java geschriebene RSS-Feeds.
@@ -19,7 +21,9 @@ Beschreibung:
 
 **EN**
 
+
 **WeltCrawler** 
+
 WeltCrawler is a crawler for multiple RSS feed  written in Java.
 Description:
 
@@ -36,10 +40,13 @@ RssFeed source: https://www.welt.de/feeds/
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
+
 **AR**
 
 
+
 **WeltCrawler** 
+
 
 WeltCrawler هو برنامج للحصول على تغذية متعدد من الاخبار RssFeed 
 مكتوب بلغة جافا و بستقبل الاوامر من الترمينل
@@ -57,7 +64,9 @@ Welt.de.
      1- politik
      2- sport
 --------------------------------------------------------------------------------------------------------------------------------------------
+
 **Hinweis**
+
 
 Die Sprache für den RSS-Feed ist Deutsch
 
@@ -72,8 +81,12 @@ the language for the Rss Feed is german
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 Author: Marsil Alashkar
+
 Version: 1.0
+
 Date: Feb. 16th, 2020
+
 @ideas-engineering
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------
