@@ -14,8 +14,11 @@ Beschreibung:
 - Es filtert die Nachrichten nach den Kategorien und nach dem Wunsch des Benutzers, welche Kategorie es wählt.
 
 - Beispiele für verfügbare Nachrichtenkategorien:
+
      1- politik
+     
      2- Sport
+     
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -31,9 +34,11 @@ Description:
 - It filters the news according to the categories and according to the user’s wish, which category chooses.
 
 - Examples of available news categories:
-    1- politik
-    2- sport
 
+    1- politik
+    
+    2- sport
+    
 
 
 RssFeed source: https://www.welt.de/feeds/
@@ -61,8 +66,11 @@ Welt.de.
 - يقوم بتصفية الأخبار وفقًا للفئات ووفقًا لرغبة المستخدم ، أي فئة يختارها
 
 - أمثلة على فئات الأخبار المتاحة:
+
      1- politik
+     
      2- sport
+     
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 **Hinweis**
