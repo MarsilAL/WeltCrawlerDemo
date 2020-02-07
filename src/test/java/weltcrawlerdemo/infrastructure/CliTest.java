@@ -1,43 +1,37 @@
 package test.weltcrawlerdemo.infrastructure;
 
 import org.junit.*;
-import org.hamcrest.core.StringContains;
-
+import org.hamcrest.core.*;
 
 import weltcrawlerdemo.infrastructure.*;
 import weltcrawlerdemo.domain.*;
 
-
 import static org.junit.Assert.*; 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.not;
 
 public class CliTest {
-    //Test 1
-
     @Test
     public void Cli_should_return_help_when_no_args_given(){
         // setup
-        final RssReader reader = new RssReader();
+        final IRssReader reader = new FakeRssReader();
         final ArticleUseCase usecase = new ArticleUseCase(reader);
 
         // given
         final Cli cli = new Cli(usecase);
-        final String[] input = {};
+        final String[] args = {};
 
         // when
-        final String actual = cli.handleInput(input);
+        final String actual = cli.handleInput(args);
         
         // then
         assertThat(actual, containsString("**** Help ****"));
     }
 
-    //Test 2
-
     @Test
-    public void Cli_should_return_results_when_cateogry_given(){
-        // todo
+    public void Cli_should_not_return_help_when_category_given(){
         // setup
-        final RssReader reader = new RssReader();
+        final IRssReader reader = new FakeRssReader();
         final ArticleUseCase usecase = new ArticleUseCase(reader);
 
         // given
@@ -45,17 +39,15 @@ public class CliTest {
         final String[] args = {"politik"};
 
         final String actual = cli.handleInput(args);
+        
         // then
-        assertThat(actual, containsString("Politik"));     
+        assertThat(actual, not(containsString("**** Help ****")));     
     } 
-
-    //Test 3
 
     @Test
     public void Cli_should_return_help_when_too_many_arguments_given(){
-        // todo
-                // setup
-        final RssReader reader = new RssReader();
+        // setup
+        final IRssReader reader = new FakeRssReader();
         final ArticleUseCase usecase = new ArticleUseCase(reader);
 
         // given
@@ -67,13 +59,10 @@ public class CliTest {
         assertThat(actual, containsString("**** Help ****"));   
     } 
 
-    //Test 4
-
     @Test
     public void Cli_should_return_help_when_invalid_arguments_given(){
-        // todo
-                // setup
-        final RssReader reader = new RssReader();
+        // setup
+        final IRssReader reader = new FakeRssReader();
         final ArticleUseCase usecase = new ArticleUseCase(reader);
 
         // given
@@ -85,8 +74,20 @@ public class CliTest {
         assertThat(actual, containsString("**** Help ****"));   
     } 
 
+    @Test
+    public void Cli_should_not_return_help_when_category_and_maxSize_given(){
 
+        // setup
+        final IRssReader reader = new FakeRssReader();
+        final ArticleUseCase usecase = new ArticleUseCase(reader);
 
+        // given
+        final Cli cli = new Cli(usecase);
+        final String[] args = {"sport", "8"};
 
-
+        final String actual = cli.handleInput(args);
+        
+        // then
+        assertThat(actual, not(containsString("**** Help ****"))); 
+    }
 }

@@ -6,10 +6,10 @@ import java.util.*;
 
 import weltcrawlerdemo.domain.Article;
 
-public class RssReader {
+public class RssReader implements IRssReader {
 
 	/** parses rss feed and returns is as a list of articles */
-	public List<Article> fetchArticles(final String urlAddress) {
+	public List<Article> fetchArticles(final String urlAddress, int maxSize) {
 		try {
 			// holds all the articles we fetched from rss
 			List<Article> articles = new ArrayList<Article>();
@@ -31,12 +31,18 @@ public class RssReader {
 					final int lastPos = title.indexOf("</title>");
 					title = title.substring(0, lastPos);
 
-					// construct the article
+					// construct the article	
 					Article article = new Article(title, "");
 
 					// add the article to the final result, which will be returns
 					articles.add(article);
+
+					// stop when we reached the maxSize
+					if (articles.size() == maxSize) {
+						break;
+					}
 				}
+				
 			}
 			in.close();
 			

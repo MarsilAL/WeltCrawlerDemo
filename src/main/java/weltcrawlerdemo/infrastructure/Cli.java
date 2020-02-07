@@ -31,6 +31,7 @@ public class Cli {
 
         // extract category
         String category = args[0];
+        int maxSize = aritclesMaxSize(args);
         int maxCount = 10;
 
         // set max count if given
@@ -41,16 +42,16 @@ public class Cli {
         // do the action
         switch (category) {
         case "politik":
-            return articlesAsString(usecase.getArticlesForCategory(category, maxCount));
+            return articlesAsString(usecase.getArticlesForCategory(category, maxSize));
         case "sport":
-            return articlesAsString(usecase.getArticlesForCategory(category, maxCount));
+            return articlesAsString(usecase.getArticlesForCategory(category, maxSize));
         }
 
         return getHelp();
     }
 
-    /**^
-     * returns the list of articles as a nice string table
+    /**
+     * ^ returns the list of articles as a nice string table
      * 
      * @param articles
      * @return
@@ -62,18 +63,27 @@ public class Cli {
             return response;
         }
 
-
         int counter = 1; // counter
+
         for (Article article : articles) { // for every article in given articles
             response += counter + ": " // save to response a new string
                     + "title: " + article.getTitle() + "\n"; // with the title of the article
             counter++; // increase the counter for the next article
-        }
 
+        }
         return response; // returns the final string
     }
 
     private String getHelp() {
         return "\n **** Help ****" + "please enter the category\nsport or politik";
     }
+
+    private int aritclesMaxSize(String args[]) {
+        int aritclesMaxSize = 1;
+        if (args.length == 2) {
+            aritclesMaxSize = Integer.parseInt(args[1]);
+        }
+        return aritclesMaxSize;
+    }
+
 }
