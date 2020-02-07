@@ -28,6 +28,13 @@ dependencies {
     testImplementation("junit:junit:4.12")
 }
 
+// adds your main class to the manifest. Manifest is a text file in your jar, that tells java which main method to run
+val jar by tasks.getting(Jar::class) {
+    manifest {
+        attributes["Main-Class"] = "weltcrawlerdemo.Crawler"
+    }
+}
+
 application {
     // Define the main class for the application.
     mainClassName = "weltcrawlerdemo.Crawler"
