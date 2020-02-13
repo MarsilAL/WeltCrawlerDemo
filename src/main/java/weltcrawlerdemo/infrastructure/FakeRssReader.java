@@ -21,3 +21,4 @@ public class FakeRssReader implements IRssReader {
     }
 
 }
+// MMC=8

@@ -50,6 +50,8 @@ public class Cli {
         return getHelp();
     }
 
+    // --> handleInput() MMC=7
+
     /**
      * ^ returns the list of articles as a nice string table
      * 

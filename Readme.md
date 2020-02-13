@@ -96,5 +96,86 @@ Date: Feb. 16th, 2020
 
 @ideas-engineering
 
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+                        ,---------------------.                                                       
+       ,------------.   |Article              |                                                       
+       |Crawler     |   |---------------------|                                                       
+       |------------|   |-title : String      |                                                       
+       |+Int Windows|   |-link : String       |                                                       
+       |------------|   |---------------------|                                                       
+       |+void main()|   |+Article(title, link)|                                                       
+       `------------'   `---------------------'                                                       
+              |                                                                                       
+              |                                                                                       
+    ,-------------------.                                                                             
+    |Cli                |                                                                             
+    |-------------------|                                                                             
+    |-------------------|                                                                             
+    |-articlesAsString()|                                                                             
+    |-getHelp()         |                                                                             
+    `-------------------'                                                                             
+              |                                                                                       
+,---------------------------.  ,--------------------------------.   ,--------------------------------.
+|ArticleUseCase             |  |RssReader                       |   |FakeRssReader                   |
+|---------------------------|  |--------------------------------|   |--------------------------------|
+|---------------------------|  |--------------------------------|   |--------------------------------|
+|+ArticleUseCase(IRssReader)|  |+fetchArticles() : List<Article>|   |+fetchArticles() : List<Article>|
+`---------------------------'  `--------------------------------'   `--------------------------------'
+                                                |                                                     
+                                                                                                      
+                                          ,----------.                                                
+                                          |IRssReader|                                                
+                                          |----------|                                                
+                                          |----------|                                                
+                                          `----------'                                                
 
 --------------------------------------------------------------------------------------------------------------------------------------------
+@startuml
+
+title weltCrawler Class Diagram
+
+
+class Crawler {
+  +Int Windows
+  +void main()
+}
+
+class Cli{
+-articlesAsString()
+-getHelp()
+}
+
+
+class RssReader{
++fetchArticles() : List<Article>
+}
+
+
+class Article{
+-title : String
+-link : String
++Article(title, link)
+}
+
+class FakeRssReader {
+    +fetchArticles() : List<Article>
+}
+
+class ArticleUseCase{
++ArticleUseCase(IRssReader)
+}
+
+interface IRssReader {
+}
+
+
+Crawler --> Cli
+Cli --> ArticleUseCase 
+ArticleUseCase --> IRssReader
+
+RssReader ..> IRssReader
+FakeRssReader ..> IRssReader
+
+
+@enduml

@@ -6,3 +6,4 @@ import java.util.*;
 public interface IRssReader{
     public List<Article> fetchArticles(final String urlAddress, int maxSize);
 }
+// MMC=0

@@ -33,6 +33,7 @@ val jar by tasks.getting(Jar::class) {
     manifest {
         attributes["Main-Class"] = "weltcrawlerdemo.Crawler"
     }
+    
 }
 
 application {

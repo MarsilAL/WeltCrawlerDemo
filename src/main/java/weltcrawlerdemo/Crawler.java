@@ -17,6 +17,8 @@ public class Crawler {
 
         // understands the users input and delegates to the usecase
         Cli cli = new Cli(usecase);
+
         System.out.println(cli.handleInput(arguments));
     }
 }
+// MMC=1

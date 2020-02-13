@@ -11,7 +11,7 @@ public class ArticleUseCase {
     private final IRssReader reader;
 
     public ArticleUseCase(IRssReader reader) {
-        this.reader = reader;
+        this.reader = reader;                               // MMC=0
     }
 
     // overloading :-)
@@ -21,16 +21,21 @@ public class ArticleUseCase {
 
     // gets the articles of a given category by asking the rss reader
     public List<Article> getArticlesForCategory(String cat, int maxSize) {
-        String url = getUrlForCategory(cat);
+        String url = getUrlForCategory(cat);                                // MMC=0
         return this.reader.fetchArticles(url, maxSize);
     }
     
     // returns the url for a given category
     private String getUrlForCategory(String category) {
+
         if (category.equals("politik"))
+
             return "https://www.welt.de/feeds/section/politik.rss";
+
         if (category.equals("sport"))
-            return "https://www.welt.de/feeds/section/sport.rss";      
+
+            return "https://www.welt.de/feeds/section/sport.rss";        // MMC=3
+            
         return "";
     }
 }

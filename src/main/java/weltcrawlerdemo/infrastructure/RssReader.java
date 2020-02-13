@@ -9,7 +9,7 @@ import weltcrawlerdemo.domain.Article;
 public class RssReader implements IRssReader {
 
 	/** parses rss feed and returns is as a list of articles */
-	public List<Article> fetchArticles(final String urlAddress, int maxSize) {
+	public List<Article> fetchArticles(final String urlAddress, int maxSize) {    // fetchArticles() MMC=7
 		try {
 			// holds all the articles we fetched from rss
 			List<Article> articles = new ArrayList<Article>();

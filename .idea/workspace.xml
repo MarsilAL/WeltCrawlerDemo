@@ -12,6 +12,9 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1XORjhhv85kwxbaXHWfoQLwjM6A" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -37,9 +40,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="399" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1580915471307">
-      <screen x="0" y="23" width="1440" height="811" />
+    <state x="399" y="287" key="com.intellij.ide.util.TipDialog" timestamp="1581091177400">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
+    <state x="399" y="287" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1581091177400" />
     <state x="399" y="282" key="com.intellij.ide.util.TipDialog/0.23.1440.811@0.23.1440.811" timestamp="1580915471307" />
   </component>
 </project>
