@@ -13,12 +13,18 @@ public class Crawler {
         RssReader reader = new RssReader();
 
         // usecase is being used by cli to orchestrate the action
-        ArticleUseCase usecase = new ArticleUseCase(reader);
+        ArticleUseCase articleUseCase = new ArticleUseCase(reader);
+       
+        ArticleRepository repository = new ArticleRepository();
 
-        // understands the users input and delegates to the usecase
-        Cli cli = new Cli(usecase);
+        StorageUseCase storageUseCase = new StorageUseCase(articleUseCase, repository);
 
-        System.out.println(cli.handleInput(arguments));
+
+
+        //OLD understands the users input and delegates to the usecase
+
+        storageUseCase.fetchAndStoreArticle();
+
     }
 }
 // MMC=1

@@ -1,2 +1,16 @@
+sudo: required
 language: java
-script : gradle build
+
+jobs:
+  include:
+  script :
+  - gradle build
+
+    - stage: build docker image
+      script:
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker build -t marsil94/marsilcrawler .
+      - docker images
+      - docker tag marsil94/marsilcrawler $DOCKER_USERNAME/marsilcrawler
+      - docker push $DOCKER_USERNAME/marsilcrawler
+    - stage: test
