@@ -1,61 +1,68 @@
 package weltcrawlerdemo.infrastructure;
 
-import java.io.*;
-import java.net.*;
 import java.util.*;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+ 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import weltcrawlerdemo.domain.Article;
+import weltcrawlerdemo.domain.ArticleUseCase;
 
 public class RssReader implements IRssReader {
 
-	/** parses rss feed and returns is as a list of articles */
-	public List<Article> fetchArticles(final String urlAddress, int maxSize) {    // fetchArticles() MMC=7
+
+	public List<Article> fetchArticles(final String urlAddress, int maxSize) {    
 		try {
-			// holds all the articles we fetched from rss
+
 			List<Article> articles = new ArrayList<Article>();
 
-			// fetch the rss fedd
-			final URL rssUrl = new URL(urlAddress);
-			final BufferedReader in;
-			
-			in = new BufferedReader(new InputStreamReader(rssUrl.openStream()));
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(urlAddress);
+            doc.getDocumentElement().normalize();
 
-			String line;
-			while ((line = in.readLine()) != null) {
-				String title = "";
 
-				if (line.contains("<title>")) {
-					final int firstPos = line.indexOf("<title>");
-					title = line.substring(firstPos);
-					title = title.replace("<title>", "");
-					final int lastPos = title.indexOf("</title>");
-					title = title.substring(0, lastPos);
 
-					// construct the article	
-					Article article = new Article(title, "");
+			for(int i=0; i<maxSize; i++) {
+				
+				//get title
+				final Node nodeTitle = doc.getElementsByTagName("title").item(i+2);
+				String title = nodeTitle.getTextContent();
 
-					// add the article to the final result, which will be returns
-					articles.add(article);
+				final Node nodeCategory= doc.getElementsByTagName("category").item(i+1);
+				String subcategory = nodeCategory.getTextContent();
+				
+                final Node nodeGuid = doc.getElementsByTagName("guid").item(i);
+                String guidAsString = nodeGuid.getTextContent();
+				int guid = Integer.parseInt(guidAsString);
+				
+                final Node nodePubDate = doc.getElementsByTagName("pubDate").item(i+1);
+				String pubdate = nodePubDate.getTextContent();
+				
+                final Node nodeDescription = doc.getElementsByTagName("description").item(i+1);
+				String description = nodeDescription.getTextContent();
+				
+				final Node nodeLink = doc.getElementsByTagName("link").item(i+1);
+                String link = nodeLink.getTextContent();
 
-					// stop when we reached the maxSize
-					if (articles.size() == maxSize) {
-						break;
-					}
-				}
+				String category = ArticleUseCase.getCategoryForUrl(urlAddress);
+
+
+				Article article = new Article(guid, subcategory, category, title, pubdate, description, link);
+
+				articles.add(article);
 				
 			}
-			in.close();
-			
-			// extract the relevant data (title)
+		
+
 			return articles;
 
-		} catch (final MalformedURLException ue) {
-			System.out.println("Malformed URL");
-		} catch (final IOException ioe) {
-			System.out.println(ioe);
-		} catch (Exception e ){
-			System.out.println(e);
-		}
-		return null;
-	}
+		} catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return new ArrayList<Article>();
+    }
 }

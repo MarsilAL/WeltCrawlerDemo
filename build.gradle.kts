@@ -17,13 +17,13 @@ plugins {
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
     // This dependency is used by the application.
     implementation("com.google.guava:guava:28.0-jre")
-    
+    implementation("org.postgresql:postgresql:42.2.10")
 
     // Use JUnit test framework
     testImplementation("junit:junit:4.12")

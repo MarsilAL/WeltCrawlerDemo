@@ -1,7 +1,9 @@
 package weltcrawlerdemo;
 
 import weltcrawlerdemo.infrastructure.*;
-import weltcrawlerdemo.domain.*;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * IDFK
@@ -9,21 +11,19 @@ import weltcrawlerdemo.domain.*;
 public class Crawler {
     public static void main(final String[] arguments) {
 
-        // rss reader fetches the feeds
-        RssReader reader = new RssReader();
+        TimerTask timerTask = new ExecuteTimer();
 
-        // usecase is being used by cli to orchestrate the action
-        ArticleUseCase articleUseCase = new ArticleUseCase(reader);
-       
-        ArticleRepository repository = new ArticleRepository();
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(timerTask, 3000, 5 * 60 * 1000);
+        System.out.println("TimerTask started");
 
-        StorageUseCase storageUseCase = new StorageUseCase(articleUseCase, repository);
-
-
-
-        //OLD understands the users input and delegates to the usecase
-
-        storageUseCase.fetchAndStoreArticle();
+        try {
+            Thread.sleep(120000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        timer.cancel();
+        System.out.println("TimerTask cancelled");
 
     }
 }

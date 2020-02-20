@@ -32,7 +32,7 @@ public class Cli {
         // extract category
         String category = args[0];
         int maxSize = aritclesMaxSize(args);
-        int maxCount = 10;
+        int maxCount = 30;
 
         // set max count if given
         if (args.length == 2) {
