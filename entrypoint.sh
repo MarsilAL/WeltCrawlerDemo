@@ -1,2 +1,2 @@
 #!/bin/sh
-java -jar weltcrawlerdemo.jar "$@"
+java -jar weltcrawlerdemo.jar

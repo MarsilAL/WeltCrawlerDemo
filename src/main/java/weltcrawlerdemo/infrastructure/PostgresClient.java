@@ -20,5 +20,4 @@ public class PostgresClient {
         System.out.println("Opened database successfully");
         return c;
      }
-
 }
