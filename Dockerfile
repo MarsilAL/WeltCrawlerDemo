@@ -3,4 +3,4 @@ EXPOSE 5432
 WORKDIR /
 COPY entrypoint.sh entrypoint.sh
 ADD build/libs/weltcrawlerdemo.jar weltcrawlerdemo.jar
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["java -jar weltcrawlerdemo.jar"]
