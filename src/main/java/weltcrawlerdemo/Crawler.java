@@ -1,15 +1,22 @@
 package weltcrawlerdemo;
 
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.server.handler.ContextHandler;
 import weltcrawlerdemo.domain.ArticleUseCase;
 import weltcrawlerdemo.domain.StorageUseCase;
 import weltcrawlerdemo.infrastructure.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.Date;
 import java.util.Timer;
 
 public class Crawler {
-    public static void main(final String[] arguments) {
+    public static void main(final String[] arguments) throws Exception {
 
         // read environment variables
         String dbHost = System.getenv("DB_HOST");
@@ -17,10 +24,6 @@ public class Crawler {
         String dbPass = System.getenv("DB_PASSWORD");
         String dbName = System.getenv("DB_NAME");
 
-        // String dbHost = "localhost";
-        // String dbUser = "postgres";
-        // String dbPass = "ideas";
-        // String dbName = "weltstore";
 
         if (dbHost == null || dbUser == null || dbPass == null || dbName == null || dbHost.isBlank() || dbUser.isBlank()
                 || dbPass.isBlank() || dbName.isBlank()) {
@@ -53,5 +56,21 @@ public class Crawler {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(timerTask, 1000, 5 * 60 * 1000);
         System.out.println("FetchAndStoreTask started");
+
+        final ContextHandler context = new ContextHandler("/health");
+        context.setHandler(new AbstractHandler() {
+            @Override
+            public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
+                response.getWriter().println("UP");
+                baseRequest.setHandled(true); // important!
+            }
+        });
+
+        final String port = System.getenv().getOrDefault("PORT", "8888");
+        final Server server = new Server(Integer.parseInt(port));
+        server.setHandler(context);
+        server.start();
+        server.join();
     }
+
 }
