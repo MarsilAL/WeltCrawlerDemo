@@ -1,26 +1,23 @@
 package weltcrawlerdemo;
 
-import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import weltcrawlerdemo.domain.ArticleUseCase;
 import weltcrawlerdemo.domain.StorageUseCase;
-import weltcrawlerdemo.infrastructure.*;
+import weltcrawlerdemo.infrastructure.db.ArticleRepository;
+import weltcrawlerdemo.infrastructure.db.PostgresClient;
+import weltcrawlerdemo.infrastructure.rss.RssReader;
+import weltcrawlerdemo.infrastructure.web.HealthEndpoint;
+import weltcrawlerdemo.infrastructure.web.LatestArticlesHandler;
+import weltcrawlerdemo.infrastructure.web.PingPongHandler;
 
-import weltcrawlerdemo.infrastructure.PostgresClient;
-
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.sql.Connection;
 import java.util.Date;
 import java.util.Timer;
 
-public class Crawler {
+
+public class Main {
     public static void main(final String[] arguments) throws Exception {
 
         // read environment variables
@@ -62,60 +59,17 @@ public class Crawler {
         timer.scheduleAtFixedRate(timerTask, 1000, 5 * 60 * 1000);
         System.out.println("FetchAndStoreTask started");
 
-        final ContextHandler health = new ContextHandler("/health");
-        final ContextHandler api = new ContextHandler("/api");
+        // configure web stuff
         final ContextHandler pingpong = new ContextHandler("/api/pingpong");
-        health.setHandler(new AbstractHandler() {
-            @Override
-            public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
-                response.getWriter().println("UP");
-                baseRequest.setHandled(true); // important!
-            }
-        });
+        final ContextHandler search = new ContextHandler("/api/search");
 
-        api.setHandler(new AbstractHandler() {
-            @Override
-            public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
-                response.getWriter().println("this is api");
-                baseRequest.setHandled(true);
-            }
-        });
-        pingpong.setHandler(new AbstractHandler() {
-            @Override
-            public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        final ContextHandler health = new ContextHandler("/health");
+        health.setHandler(new HealthEndpoint());
+        pingpong.setHandler(new PingPongHandler());
 
-                String echo = "";
+        search.setHandler(new LatestArticlesHandler(storageUseCase));
 
-                if(request.getParameter("echo") != null){
-                    echo = request.getParameter("echo");
-                }
-                if(!echo.isEmpty()){
-
-                    if(echo.equals("ping")){
-
-                        response.getWriter().println("pong");
-
-                    } else if(echo.equals("pong")){
-
-                        response.getWriter().println("ping");
-
-                    }  else {
-
-
-                        response.setStatus(400);
-                    }
-                } else {
-
-                    response.getWriter().println("please enter a parameter ");
-
-                }
-                baseRequest.setHandled(true);
-
-            }
-
-        });
-
-        ContextHandlerCollection contexts = new ContextHandlerCollection(health, api, pingpong);
+        ContextHandlerCollection contexts = new ContextHandlerCollection(health, pingpong, search);
         final String port = System.getenv().getOrDefault("PORT", "8888");
         final Server server = new Server(Integer.parseInt(port));
         server.setHandler(contexts);

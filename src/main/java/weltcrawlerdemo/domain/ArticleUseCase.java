@@ -1,7 +1,7 @@
 package weltcrawlerdemo.domain;
 
 import java.util.List;
-import weltcrawlerdemo.infrastructure.IRssReader;
+import weltcrawlerdemo.infrastructure.rss.IRssReader;
 
 /**
  * ArticleUseCase is responsible for getting articles of a given category
@@ -66,7 +66,6 @@ public class ArticleUseCase {
 
 
         return "";
-
         
     }
 }

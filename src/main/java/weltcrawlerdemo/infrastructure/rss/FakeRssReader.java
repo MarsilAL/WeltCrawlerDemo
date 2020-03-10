@@ -1,4 +1,4 @@
-package weltcrawlerdemo.infrastructure;
+package weltcrawlerdemo.infrastructure.rss;
 // the fake rss reader always returns the same 5 articels
 
 import java.util.ArrayList;

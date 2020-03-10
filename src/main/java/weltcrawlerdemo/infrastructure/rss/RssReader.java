@@ -1,4 +1,4 @@
-package weltcrawlerdemo.infrastructure;
+package weltcrawlerdemo.infrastructure.rss;
 
 import java.util.*;
 

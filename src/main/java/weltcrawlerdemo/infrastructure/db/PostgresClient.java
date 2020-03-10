@@ -1,4 +1,4 @@
-package weltcrawlerdemo.infrastructure;
+package weltcrawlerdemo.infrastructure.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

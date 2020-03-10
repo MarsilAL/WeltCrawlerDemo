@@ -1,4 +1,4 @@
-package weltcrawlerdemo.infrastructure;
+package weltcrawlerdemo;
 
 import java.util.Date;
 

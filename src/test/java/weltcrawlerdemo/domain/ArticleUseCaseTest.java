@@ -1,14 +1,14 @@
 package test.weltcrawlerdemo.domain;
 
 import org.junit.*;
-import org.hamcrest.core.*;
+
 import java.util.List;
 
-import weltcrawlerdemo.infrastructure.*;
 import weltcrawlerdemo.domain.*;
+import weltcrawlerdemo.infrastructure.rss.FakeRssReader;
+import weltcrawlerdemo.infrastructure.rss.IRssReader;
 
-import static org.junit.Assert.*; 
-import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.not;
 
 public class ArticleUseCaseTest {

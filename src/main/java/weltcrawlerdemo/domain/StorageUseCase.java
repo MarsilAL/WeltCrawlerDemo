@@ -2,7 +2,7 @@ package weltcrawlerdemo.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import weltcrawlerdemo.infrastructure.ArticleRepository;
+import weltcrawlerdemo.infrastructure.db.ArticleRepository;
 
 public class StorageUseCase {
 
@@ -47,11 +47,11 @@ public class StorageUseCase {
         }
     }
 
-
-
+    public List<Article> getLatestArticles() {
+        return repository.latest();
+    }
 
     public List<Article> searchArticles(String term, String category) {
-
         return new ArrayList<Article>();
     }
 }
