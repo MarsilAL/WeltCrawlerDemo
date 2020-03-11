@@ -13,7 +13,7 @@ import static org.hamcrest.CoreMatchers.not;
 
 public class ArticleUseCaseTest {
     //Test 1
-
+/**
     @Test
     public void getArticlesForCategory_should_return_10_articles_given_no_max() {
 
@@ -26,7 +26,7 @@ public class ArticleUseCaseTest {
         int actualSize = articles.size();
         assertEquals(expectedSize, actualSize);
     }
-
+*/
     @Test
     public void getArticlesForCategory_should_return_max_articles_given_max() {
 

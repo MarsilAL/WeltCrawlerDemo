@@ -47,11 +47,13 @@ public class StorageUseCase {
         }
     }
 
-    public List<Article> getLatestArticles() {
-        return repository.latest();
+    public  List<Article> getLatestArticles(String searchcategory) {
+        return repository.articleSearch(searchcategory);
     }
-
+/*
     public List<Article> searchArticles(String term, String category) {
         return new ArrayList<Article>();
     }
+
+ */
 }

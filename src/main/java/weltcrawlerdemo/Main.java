@@ -62,16 +62,17 @@ public class Main {
         // configure web stuff
         final ContextHandler pingpong = new ContextHandler("/api/pingpong");
         final ContextHandler search = new ContextHandler("/api/search");
-
         final ContextHandler health = new ContextHandler("/health");
+
         health.setHandler(new HealthEndpoint());
         pingpong.setHandler(new PingPongHandler());
-
         search.setHandler(new LatestArticlesHandler(storageUseCase));
 
         ContextHandlerCollection contexts = new ContextHandlerCollection(health, pingpong, search);
+
         final String port = System.getenv().getOrDefault("PORT", "8888");
         final Server server = new Server(Integer.parseInt(port));
+
         server.setHandler(contexts);
         server.start();
         server.join();
